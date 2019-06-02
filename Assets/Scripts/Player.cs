@@ -12,10 +12,15 @@ public class Player : MonoBehaviour
     private float inputV;
     public bool isRunning;
 
+    public AudioSource audSrc;
+    public AudioClip running;
+    public AudioClip jumping;
+
     void Start()
     {
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
+        audSrc = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -23,6 +28,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             animator.SetBool("jump", true);
+            audSrc.PlayOneShot(jumping,1f);
         }
         else
         {
@@ -53,11 +59,11 @@ public class Player : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            characterController.GetComponent<AudioSource>().Play();
+            audSrc.Play();
         }
         if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.UpArrow))
         {
-            characterController.GetComponent<AudioSource>().Stop();
+            audSrc.Stop();
         }
     }
 }
